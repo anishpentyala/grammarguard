@@ -16,8 +16,18 @@ grammarguard checks your pattern **offline, deterministically, with zero
 dependencies**: parse it, build the actual automaton, and report what the
 engine will see.
 
+## Install from source
+
+Python 3.10 or newer and Git are required. This project is not currently published
+to PyPI; install the code from this repository instead of `pip install grammarguard`.
+In a POSIX shell:
+
 ```bash
-pip install grammarguard
+git clone https://github.com/anishpentyala/grammarguard.git
+cd grammarguard
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install .
 grammarguard '\d{4}-\d{2}-\d{2}'
 ```
 
@@ -28,7 +38,7 @@ shortest witnesses: ["0000-00-00"]
 sample matches (<= 16, truncated=True): ["0000-00-00", "0000-00-01", ...]
 near-miss controls (all rejected): ["000-00-00", "00000-00-00", ...]
 common literal prefix: ""
-length bounds: min=10 max=10  finite=False
+length bounds: min=10 max=10  finite=True
 automaton: 11 DFA states (11 minimized), 10 transitions
 ReDoS hazard lint: no known hazard shapes found (heuristic; not a safety proof)
 ```
@@ -127,7 +137,7 @@ grammarguard.redos_lint(grammarguard.parse("(a+)+"))
 ## Development
 
 ```bash
-python -m pytest tests/    # 94 tests, stdlib + pytest only
+python -m pytest tests/    # 124 tests, stdlib + pytest only
 ```
 
 ## Differentiation
